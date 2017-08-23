@@ -1,0 +1,122 @@
+#include<iostream>
+#include<stdio.h>
+using namespace std;
+
+void create (int);
+void traverse();
+void modify (int);
+void dlt (int);
+
+struct node
+{
+    int x;
+    struct node *next;
+} *start, *tmp, *head, *trav, *temp;
+
+int main()
+{
+
+    int a,ch,loc,I=1;
+    do
+    {
+    cout<<"Enter \n 1. Create \n 2. Modify \n 3. Delete \n 4. Traverse \n ";
+    cin>>ch;
+
+    switch(ch)
+    {
+    case 1 :
+        {
+            cout<<"Enter value :- ";
+            cin>>a;
+            create(a);
+        } break;
+    case 2 :
+        {
+            cout<<"Enter location where you want to modify :- ";
+            cin>>loc;
+            modify(loc);
+        } break;
+    case 3 :
+        {
+            cout<<"Enter location where you want to delete :- ";
+            cin>>loc;
+            dlt(loc);
+        } break;
+    case 4 :
+        {
+            traverse();
+        } break;
+    }
+}while (I!=0);
+}
+
+
+void create(int a)
+{
+    start = new (struct node);
+    start->x=a;
+
+
+    if (tmp==NULL)
+    {
+        start->next=NULL;
+        head = start;
+        tmp = start;
+    }
+    else
+    {
+        start->next=NULL;
+        tmp->next = start;
+        tmp = start;
+
+    }
+}
+
+void traverse()
+{
+    for (trav=head; trav!=NULL; trav=trav->next)
+    {
+        cout<<trav->x;
+        cout<<" ";
+    }
+    cout<<"\n";
+}
+
+void modify(int x)
+{
+    int i=0;
+    int y=x;
+    for (trav=head; trav!=NULL; trav=trav->next)
+    {
+        i++;
+        if (i==y)
+        {
+            cout<<"Enter data - ";
+            cin>>trav->x;
+            cout<<" ";
+        }
+    }
+    cout<<"\n";
+}
+
+void dlt(int g)
+{
+    int i=0;
+    for (trav=head; trav!=NULL; trav=trav->next)
+    {
+        i++;
+        if (i==g)
+        {
+        temp = new (struct node);
+        temp = trav->next;
+        trav->x=trav->next->x;
+        trav->next = temp->next;
+        }
+    }
+    for (trav=head; trav!=NULL; trav=trav->next)
+    {
+        cout<<trav->x;
+        cout<<" ";
+    }
+    cout<<"\n";
+}
