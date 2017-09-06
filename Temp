@@ -1,0 +1,123 @@
+#include<iostream>
+using namespace std;
+
+void AddBeg(int);
+void AddMid(int,int);
+void AddEnd(int);
+void Display();
+//void Del(int);
+//void Mod(int, int);
+
+struct node
+{
+    int x;
+    struct node *next;
+}*head=NULL, *newptr1, *newptr2, *newptr3, *newptr4, *newptrtemp, *newptrtemp2, *trav, *trav1, *trav2, *tail=NULL;
+
+int main()
+{
+    newptr1 = new (struct node);
+    head=newptr1;
+    newptr1->x=0;
+
+    newptrtemp = new (struct node);
+    newptrtemp->x=1;
+    newptr1->next=newptrtemp;
+
+    newptrtemp2 =  new (struct node);
+    newptrtemp2->x=2;
+    newptrtemp->next=newptrtemp2;
+    tail=newptrtemp2;
+    newptrtemp2->next=newptr1;
+
+
+
+    int i=1;
+    char ch;
+    int x,loc,y,n;
+    do
+    {
+        cout<<"Enter option - \n";
+        cout<<"1. Addition \n2. Modification \n3. Deletion \n";
+        cin>>ch;
+
+        switch(ch)
+        {
+            case '1' :
+                     cout<<"Enter the value and location you want to add at - \n";
+                     cin>>y;
+                     cin>>loc;
+                     for (trav=head; trav->next!=tail; trav=trav->next)
+                     {
+                         i++;
+                     }
+                     if (loc==1)
+                     {
+                         AddBeg(y);
+                     }
+                     else if (loc<i&&loc>1)
+                     {
+                         AddMid(y,loc);
+                     }
+                     else if (loc==i)
+                     {
+                         AddEnd(y);
+                     }
+                     Display();
+
+                     break;
+            case '2' : cout<<"Enter the value and location you want to modify - \n";
+                     cin>>y;
+                     //Mod(y,loc);
+                     break;
+            case '3' : cout<<"Enter the location you want to delete - \n";
+                     cin>>loc;
+                     //Del(loc);
+                     break;
+            default : cout<<"Wrong input";
+                     break;
+        }
+        cin>>n;
+    }while(n!=0);
+}
+
+void AddBeg(int a)
+{
+    newptr2 = new (struct node);
+    newptr2->x=a;
+    tail->next=newptr2;
+    newptr2->next=head;
+    head=newptr2;
+}
+
+void AddMid(int a, int loc)
+{
+    trav1=head;
+    newptr3=new (struct node);
+    newptr3->x=a;
+    for (int j=1; j<loc-1; j++)
+    {
+        trav1=trav1->next;
+
+    }
+
+    newptr3->next=trav1->next;
+    trav1->next=newptr3;
+}
+
+void AddEnd(int b)
+{
+    newptr4 = new (struct node);
+    newptr4->x=b;
+    tail->next=newptr4;
+    newptr4->next=head;
+}
+
+void Display()
+{
+    for (trav2=head; trav2->next!=tail; trav2=trav2->next)
+        {
+            cout<<trav2->x;
+            cout<<"\t";
+        }
+}
